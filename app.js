@@ -4,7 +4,11 @@
  */
 let express = require('express')
 let app = express()
+let mysql = require('mysql')
+let myConnection = require('express-myconnection')
+let dbOptions = require('./models/config')
 
+app.use(myConnection(mysql, dbOptions, 'single'));
 // 路由文件
 let index = require('./routes/index')
 
