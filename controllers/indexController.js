@@ -16,7 +16,7 @@ module.exports = {
   },
   getShopList: (req, res, next) => {
     if (!sessionConf.checkTiming(req, res)) {
-      res.json({code: 1, msg: '用户未登录'})
+      res.json({code: 0, msg: '用户未登录', data: {}})
       return
     }
     req.getConnection((err, conn)=>{
