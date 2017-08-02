@@ -11,6 +11,7 @@ let sessionConf = {
     if (!sessionStore[id] || !sessionStore[id].user) {
       return false;
     }
+    return true
   },
   getSession: function () {
     let session = {
