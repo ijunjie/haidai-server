@@ -15,8 +15,11 @@
   "author": "monkeyWang",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "express-myconnection": "^1.0.4",
+    "express-session": "^1.15.4",
     "mysql": "^2.14.0"
   }
 }
