@@ -9,4 +9,5 @@ let usersCtrl = require('../controllers/usersCtrl')
 
 router.post('/login', usersCtrl.login)
 router.post('/sign', usersCtrl.sign)
+router.get('/getUserInfo', usersCtrl.getUserInfo)
 module.exports = router

@@ -4,13 +4,14 @@
  */
 let userQuery = require('../models/query/userQuery')
 let common = require('../config/common')
+let sessionConf = require('../config/session.config')
 module.exports = {
   login: (req, res, next) => {
     req.getConnection((err, conn)=>{
       if(err) {
         return next(err)
       } else {
-        conn.query(userQuery.loginQuery(req.body.username, req.body.password), [], (err, result) => {
+        conn.query(userQuery.loginQuery(req.body.username, common.getEncAse192(req.body.password, common.secret)), [], (err, result) => {
           if (err) {
             res.json({
               code: 1,
@@ -38,7 +39,7 @@ module.exports = {
         return next(err)
       } else {
         let username = req.body.username
-        let password = req.body.password
+        let password = common.getEncAse192(req.body.password, common.secret)
         let creationTime = (new Date()).getTime()
         let shopId = common.randomString()
         let shopName = common.randomString(10)
@@ -68,5 +69,13 @@ module.exports = {
         })
       }
     })
+  },
+  getUserInfo (req, res) {
+    if (!sessionConf.checkTiming(req, res)) {
+      res.json({code: 1, msg: '用户未登录', data: {}})
+      return
+    } else {
+      res.json({code: 0, msg: 'success', data: sessionStore[req.session.sessionId].user})
+    }
   }
 }
